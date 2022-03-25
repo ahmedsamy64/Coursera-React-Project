@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, Row, Col, Label } from "reactstrap";
-import { Control, LocalForm, Errors } from "react-redux-form";
+import { Control, Form, Errors, actions, LocalForm } from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -14,9 +14,12 @@ export default class CommentForm extends Component {
     };
   }
 
-  handleSubmit = (values) => {
-    console.log(">>>.values", values);
-  };
+  handleSubmit(values) {
+    console.log('Current State is: ' + JSON.stringify(values));
+    alert('Current State is: ' + JSON.stringify(values));
+    this.props.resetFeedbackForm();
+    // event.preventDefault();
+  }
   toggleModal = () => {
     this.setState({ modalOpened: !this.state.modalOpened });
   };
@@ -31,7 +34,7 @@ export default class CommentForm extends Component {
         </Button>
         <Modal isOpen={this.state.modalOpened} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
-          <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+          <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
             {/* Rating */}
             <>
               <Label htmlFor="firstname" md={4}>
@@ -103,7 +106,7 @@ export default class CommentForm extends Component {
                 </Button>
               </Col>
             </Row>
-          </LocalForm>
+          </Form>
         </Modal>
       </div>
     );
