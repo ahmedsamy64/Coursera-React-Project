@@ -67,7 +67,6 @@ function RenderComments({ comments, postComment, dishId, resetFeedbackForm }) {
 }
 
 const DishDetail = (props) => {
-  const dish = props.dish;
 
   if (props.isLoading) {
     return (
